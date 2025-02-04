@@ -24,6 +24,19 @@ final class ApiClientTest: XCTestCase {
         XCTAssert((expectedError as? CatAppError) == .invalidURL)
     }
     
+    func testFetchData_WhenServerError_ThenThrowError() async {
+        let endpoint = EndpointDummy.validPath
+        var expectedError: Error?
+        
+        do {
+            let _: [CatResponse] = try await sut.fetchData(from: endpoint)
+        } catch {
+            expectedError = error
+        }
+        
+        XCTAssertNotNil(expectedError)
+    }
+    
     func testFetchData_WhenInvalidData_ThenThrowError() async {
         sessionStub.successData = Data()
         let endpoint = EndpointDummy.validPath
@@ -39,19 +52,12 @@ final class ApiClientTest: XCTestCase {
     }
     
     func testFetchData_WhenSuccess_ThenReturnOnject() async throws {
-        sessionStub.successData = load(from: "cat_response", for: Self.self)
+        sessionStub.successData = JSONLoader.load(from: "cat_response", for: Self.self)
         let endpoint = EndpointDummy.validPath
         
         let response: [CatResponse] = try await sut.fetchData(from: endpoint)
         
         XCTAssertEqual(response, [.dummy])
-    }
-    
-    func load(from file: String, for aClass: AnyClass) -> Data? {
-        guard let url = Bundle(for: aClass).url(forResource: file, withExtension: "json") else {
-            return nil
-        }
-        return try? Data(contentsOf: url)
     }
 }
 

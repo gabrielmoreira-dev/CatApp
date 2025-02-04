@@ -1,6 +1,6 @@
 import Foundation
 
-enum CatEndpoint: EndpointType {
+enum CatEndpoint: EndpointType, Equatable {
     case catList(page: Int, limit: Int)
     
     var path: String {
