@@ -10,6 +10,15 @@ final class CatServiceTest: XCTestCase {
         ApiClientSpy<[CatResponse]>()
     }()
 
+    func testFetchData_WhenSuccess_ThenReturnData() async throws {
+        apiClientSpy.successData = [CatResponse.dummy]
+        let input = CatServiceInput(page: 0, limit: 1)
+
+        let result = try await sut.fetchData(input: input)
+
+        XCTAssertEqual(result, [CatResponse.dummy])
+    }
+
     func testFetchData_WhenFailure_ThenThrowError() async {
         let input = CatServiceInput(page: 0, limit: 1)
         var expectedError: Error?
@@ -23,22 +32,13 @@ final class CatServiceTest: XCTestCase {
         XCTAssertNotNil(expectedError)
     }
 
-    func testFetchData_WhenSuccess_ThenReturnData() async throws {
-        apiClientSpy.successData = [.dummy]
-        let input = CatServiceInput(page: 0, limit: 1)
-
-        let result = try await sut.fetchData(input: input)
-
-        XCTAssertEqual(result, [.dummy])
-    }
-
     func testFetchData_WhenCalled_ThenPassEndpoint() async throws {
         apiClientSpy.successData = [.dummy]
         let page = 0
         let limit = 1
         let input = CatServiceInput(page: page, limit: limit)
 
-        let result = try await sut.fetchData(input: input)
+        let _ = try await sut.fetchData(input: input)
 
         XCTAssertEqual(apiClientSpy.receivedEndpoint as? CatEndpoint, .catList(page: page, limit: limit))
     }

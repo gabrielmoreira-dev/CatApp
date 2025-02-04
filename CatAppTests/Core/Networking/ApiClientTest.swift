@@ -57,7 +57,7 @@ final class ApiClientTest: XCTestCase {
         
         let response: [CatResponse] = try await sut.fetchData(from: endpoint)
         
-        XCTAssertEqual(response, [.dummy])
+        XCTAssertEqual(response, [CatResponse.dummy])
     }
 }
 
