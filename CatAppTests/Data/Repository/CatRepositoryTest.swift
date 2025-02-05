@@ -35,7 +35,7 @@ final class CatRepositoryTest: XCTestCase {
         let page = 0
         let limit = 1
 
-        let result = try await sut.getCatItems(page: page, limit: limit)
+        let _ = try await sut.getCatItems(page: page, limit: limit)
 
         XCTAssertEqual(serviceSpy.receivedInput?.page, page)
         XCTAssertEqual(serviceSpy.receivedInput?.limit, limit)
@@ -45,7 +45,7 @@ final class CatRepositoryTest: XCTestCase {
 private final class CatServiceSpy: ServiceType {
     private(set) var receivedInput: CatServiceInput?
     var successData: [CatResponse]?
-    var error: Error = CatAppError.server
+    var error: Error = CatAppError.generic
 
     func fetchData(input: CatServiceInput) async throws -> [CatResponse] {
         receivedInput = input
