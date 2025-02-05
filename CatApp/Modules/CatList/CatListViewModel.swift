@@ -16,14 +16,26 @@ final class CatListViewModel {
         if items.isEmpty {
             state = .loading
         }
-        let input = GetCatItemsUseCaseInput(page: page, limit: limit)
         do {
+            let input = GetCatItemsUseCaseInput(page: page, limit: limit)
             let result = try await getCatItemsUseCase.execute(input: input)
-            page += 1
-            items.append(contentsOf: result.filter { !$0.breeds.isEmpty })
-            state = .success
+            handleSuccess(result)
         } catch {
-            state = .failure(error as? CatAppError ?? .generic)
+            handleError(error)
         }
+    }
+
+    private func handleSuccess(_ result: [CatItem]) {
+        page += 1
+        items.append(contentsOf: result.filter { !$0.breeds.isEmpty })
+        state = .success
+    }
+
+    private func handleError(_ error: Error) {
+        guard items.isEmpty else { return }
+        let errorViewModel = ErrorViewModel(error: error as? CatAppError ?? .generic) { [weak self] in
+            await self?.loadItems()
+        }
+        state = .failure(errorViewModel)
     }
 }

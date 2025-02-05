@@ -15,18 +15,28 @@ final class CatListViewModelTest: XCTestCase {
     }
 
     func testLoadItems_WhenSuccess_ThenStateIsSuccess() async {
-        useCaseSpy.successData = [CatItem.dummy]
+        useCaseSpy.successData = [.dummy]
 
         await sut.loadItems()
 
         XCTAssertEqual(sut.state, .success)
-        XCTAssertEqual(sut.items, [CatItem.dummy])
+        XCTAssertEqual(sut.items, [.dummy])
+    }
+
+    func testLoadItems_WhenLoadMoreItems_ThenStateIsSuccess() async {
+        useCaseSpy.successData = [.dummy]
+
+        await sut.loadItems()
+        await sut.loadItems()
+
+        XCTAssertEqual(sut.state, .success)
+        XCTAssertEqual(sut.items, [.dummy, .dummy])
     }
 
     func testLoadItems_WhenFailure_ThenStateIsFailure() async {
         await sut.loadItems()
 
-        XCTAssertEqual(sut.state, .failure(.generic))
+        XCTAssertEqual(sut.state, .failure(ErrorViewModel(error: .generic, onTryAgain: nil)))
     }
 
     func testLoadItems_WhenCalled_ThenPassParams() async throws {

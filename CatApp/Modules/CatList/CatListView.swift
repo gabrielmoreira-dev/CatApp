@@ -10,8 +10,8 @@ struct CatListView: View {
                 content
             case .loading:
                 ProgressView()
-            case .failure:
-                Text("Error")
+            case .failure(let viewModel):
+                ErrorView(viewModel: viewModel)
             }
         }
         .navigationTitle("Cats")

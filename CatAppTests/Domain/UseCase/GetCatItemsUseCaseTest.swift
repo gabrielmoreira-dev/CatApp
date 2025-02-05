@@ -11,7 +11,7 @@ final class GetCatItemsUseCaseTest: XCTestCase {
     }()
 
     func testExecute_WhenSuccess_ThenReturnItems() async throws {
-        repositorySpy.successData = [CatItem.dummy]
+        repositorySpy.successData = [.dummy]
         let input = GetCatItemsUseCaseInput(page: 0, limit: 1)
 
         let result = try await sut.execute(input: input)
@@ -33,7 +33,7 @@ final class GetCatItemsUseCaseTest: XCTestCase {
     }
 
     func testGetCatItems_WhenCalled_ThenPassParams() async throws {
-        repositorySpy.successData = [CatItem.dummy]
+        repositorySpy.successData = [.dummy]
         let input = GetCatItemsUseCaseInput(page: 0, limit: 1)
 
         let _ = try await sut.execute(input: input)

@@ -18,8 +18,15 @@ final class ApiClient: ApiClientType {
         var request = URLRequest(url: url)
         request.addValue(Environment.apiKey.value, forHTTPHeaderField: Headers.apiKey.rawValue)
         request.httpMethod = endpoint.method.rawValue
-        let (data, _) = try await session.data(for: request, delegate: nil)
-        return try parse(data)
+        do {
+            let (data, _) = try await session.data(for: request, delegate: nil)
+            return try parse(data)
+        } catch {
+            guard (error as? URLError)?.isInternetError == true else {
+                throw error
+            }
+            throw CatAppError.internet
+        }
     }
     
     private func getURL(for endpoint: EndpointType) -> URL? {
@@ -35,5 +42,19 @@ final class ApiClient: ApiClientType {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try decoder.decode(T.self, from: data)
+    }
+}
+
+extension URLError {
+    var isInternetError: Bool {
+        let codes = [
+            NSURLErrorBadURL,
+            NSURLErrorTimedOut,
+            NSURLErrorCannotFindHost,
+            NSURLErrorCannotConnectToHost,
+            NSURLErrorNetworkConnectionLost,
+            NSURLErrorNotConnectedToInternet
+        ]
+        return codes.contains(code.rawValue)
     }
 }

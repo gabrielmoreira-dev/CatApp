@@ -11,12 +11,12 @@ final class CatServiceTest: XCTestCase {
     }()
 
     func testFetchData_WhenSuccess_ThenReturnData() async throws {
-        apiClientSpy.successData = [CatResponse.dummy]
+        apiClientSpy.successData = [.dummy]
         let input = CatServiceInput(page: 0, limit: 1)
 
         let result = try await sut.fetchData(input: input)
 
-        XCTAssertEqual(result, [CatResponse.dummy])
+        XCTAssertEqual(result, [.dummy])
     }
 
     func testFetchData_WhenFailure_ThenThrowError() async {

@@ -31,7 +31,7 @@ final class CatRepositoryTest: XCTestCase {
     }
 
     func testGetCatItems_WhenCalled_ThenPassParams() async throws {
-        serviceSpy.successData = [CatResponse.dummy]
+        serviceSpy.successData = [.dummy]
         let page = 0
         let limit = 1
 
