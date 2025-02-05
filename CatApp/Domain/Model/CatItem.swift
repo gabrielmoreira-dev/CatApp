@@ -1,4 +1,4 @@
-struct CatItem: Equatable {
+struct CatItem: Identifiable, Equatable {
     let id: String
     let url: String
     let breeds: [Breed]
