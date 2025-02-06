@@ -2,7 +2,7 @@ import SwiftUI
 
 extension CatListViewModel {
     enum Constants {
-        static let limit = 10
+        static let limit = 20
     }
 }
 

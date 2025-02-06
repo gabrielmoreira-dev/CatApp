@@ -62,7 +62,7 @@ struct CatListView: View {
     }
 
     func onScrolled(_ index: Int) {
-        if viewModel.items.count - index == 1 {
+        if viewModel.items.count - index == 5 {
             Task {
                 await viewModel.loadItems()
             }

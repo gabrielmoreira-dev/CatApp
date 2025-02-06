@@ -36,7 +36,21 @@ final class ApiClientTest: XCTestCase {
         
         XCTAssertNotNil(expectedError)
     }
-    
+
+    func testFetchData_WhenInternetError_ThenThrowError() async {
+        sessionStub.error = URLError(URLError.Code(rawValue: NSURLErrorNotConnectedToInternet))
+        let endpoint = EndpointDummy.validPath
+        var expectedError: Error?
+
+        do {
+            let _: [CatResponse] = try await sut.fetchData(from: endpoint)
+        } catch {
+            expectedError = error
+        }
+
+        XCTAssertNotNil(expectedError)
+    }
+
     func testFetchData_WhenInvalidData_ThenThrowError() async {
         sessionStub.successData = Data()
         let endpoint = EndpointDummy.validPath
