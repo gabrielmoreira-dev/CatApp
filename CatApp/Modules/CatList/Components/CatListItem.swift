@@ -27,7 +27,9 @@ struct CatListItem: View {
                     .font(.caption)
                     .fontWeight(.light)
             }
+            Spacer()
         }
+        .background()
     }
 }
 
