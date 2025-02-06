@@ -16,7 +16,7 @@ final class ApiClient: ApiClientType {
             throw CatAppError.invalidURL
         }
         var request = URLRequest(url: url)
-        request.addValue(Environment.apiKey.value, forHTTPHeaderField: Headers.apiKey.rawValue)
+        request.addValue(Configuration.apiKey.value, forHTTPHeaderField: Headers.apiKey.rawValue)
         request.httpMethod = endpoint.method.rawValue
         do {
             let (data, _) = try await session.data(for: request, delegate: nil)
@@ -32,7 +32,7 @@ final class ApiClient: ApiClientType {
     private func getURL(for endpoint: EndpointType) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = Environment.baseURL.value
+        components.host = Configuration.baseURL.value
         components.path = endpoint.path
         components.queryItems = endpoint.queryItems
         return components.url

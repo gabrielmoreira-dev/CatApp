@@ -2,12 +2,10 @@ import SwiftUI
 
 extension ErrorView {
     enum Layout {
-        static let imageWidth: CGFloat = 220
-        static let imageHeight: CGFloat = 220
+        static let imageWidth: CGFloat = 250
+        static let imageHeight: CGFloat = 250
         static let textSpacing: CGFloat = 18
         static let buttonHeight: CGFloat = 40
-        static let horizontalSpacing: CGFloat = 20
-        static let verticalSpacing: CGFloat = 32
     }
 }
 
@@ -16,6 +14,7 @@ struct ErrorView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             RoundedBorderImage(
                 imageResource: viewModel.image,
                 width: Layout.imageWidth,
@@ -29,7 +28,7 @@ struct ErrorView: View {
             Spacer()
                 .frame(height: Layout.textSpacing)
             Text(viewModel.description)
-                .font(.headline)
+                .font(.title3)
                 .multilineTextAlignment(.center)
             Spacer()
             Button {
@@ -42,12 +41,7 @@ struct ErrorView: View {
             }
             .buttonStyle(.borderedProminent)
         }
-        .padding(EdgeInsets(
-            top: Layout.verticalSpacing,
-            leading: Layout.horizontalSpacing,
-            bottom: Layout.verticalSpacing,
-            trailing: Layout.horizontalSpacing
-        ))
+        .padding()
     }
 }
 
@@ -57,3 +51,4 @@ struct ErrorView: View {
         onTryAgain: nil
     ))
 }
+

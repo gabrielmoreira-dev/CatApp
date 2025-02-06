@@ -1,10 +1,17 @@
 import SwiftUI
 
+extension CatListView {
+    enum Constants {
+        static let title = String(localized: "Cats")
+    }
+}
+
 struct CatListView: View {
     @State private var viewModel = CatListViewModel()
+    @Environment(Router.self) var router
 
     var body: some View {
-        VStack {
+        Group {
             switch viewModel.state {
             case .success:
                 content
@@ -14,7 +21,7 @@ struct CatListView: View {
                 ErrorView(viewModel: viewModel)
             }
         }
-        .navigationTitle("Cats")
+        .navigationTitle(Constants.title)
         .task {
              await viewModel.loadItems()
         }
@@ -25,6 +32,9 @@ struct CatListView: View {
             CatListItem(item: item)
                 .onAppear {
                     onScrolled(index)
+                }
+                .onTapGesture {
+                    router.navigateToDetails(item: item)
                 }
         }
         .listStyle(.plain)

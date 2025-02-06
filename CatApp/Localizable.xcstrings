@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Adaptability:" : {
+
+    },
+    "Affection Level:" : {
+
+    },
     "Cats" : {
       "localizations" : {
         "en" : {
@@ -14,7 +20,25 @@
     "Check your connection and try again" : {
 
     },
+    "Child Friendly:" : {
+
+    },
+    "Dog Friendly:" : {
+
+    },
+    "Energy Level:" : {
+
+    },
+    "Intelligence:" : {
+
+    },
     "It seems like there is no internet" : {
+
+    },
+    "Rare:" : {
+
+    },
+    "Social Needs:" : {
 
     },
     "Something went wrong" : {

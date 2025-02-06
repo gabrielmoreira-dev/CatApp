@@ -1,6 +1,6 @@
 import Foundation
 
-enum Environment: String {
+enum Configuration: String {
     case baseURL = "BASE_URL"
     case apiKey = "API_KEY"
     

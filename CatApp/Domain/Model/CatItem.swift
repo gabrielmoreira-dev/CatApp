@@ -1,9 +1,9 @@
-struct CatItem: Identifiable, Equatable {
+struct CatItem: Identifiable, Hashable, Equatable {
     let id: String
     let url: String
     let breeds: [Breed]
 
-    struct Breed: Equatable {
+    struct Breed: Hashable, Equatable {
         let name: String
         let description: String
         let origin: String
