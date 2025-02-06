@@ -3,8 +3,11 @@
   
   # The CatApp
   <img src="https://img.shields.io/badge/iOS-17+-red"/>
+  <img src="https://img.shields.io/badge/XCode-16+-red"/>
 
   **CatApp** is a modern iOS application that displays a list of cats from [The Cat API](https://thecatapi.com/). Built with SwiftUI, it combines performance and elegant design to deliver the best experience for cat lovers.
+  
+  <img alt="CatAppGIF" width=250 src="https://github.com/gabrielmoreira-dev/Resources/blob/main/CatApp_Dark.gif"/> 
 </div>
 
 ## Setup Instructions
