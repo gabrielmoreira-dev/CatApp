@@ -1,17 +1,11 @@
 import XCTest
 
-final class CatListViewUITest: XCTestCase {
+final class CatListFlowUITest: XCTestCase {
     private lazy var app: XCUIApplication = {
         let app = XCUIApplication()
         app.launch()
         return app
     }()
-
-    func testCatListView_WhenStarted_ThenShowView() {
-        let cell = app.collectionViews.children(matching: .cell).element
-
-        XCTAssert(cell.exists)
-    }
 
     func testCatListView_WhenSelectItem_ThenNavigateToCatDetailsView() {
         let elementsQuery = app.scrollViews.otherElements

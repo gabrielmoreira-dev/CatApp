@@ -15,6 +15,7 @@ struct Avatar: View {
             $0.resizable()
         } placeholder: {
             ProgressView()
+                .id(UUID())
         }
         .aspectRatio(contentMode: .fill)
         .frame(width: Layout.imageWidth, height: Layout.imageHeight)

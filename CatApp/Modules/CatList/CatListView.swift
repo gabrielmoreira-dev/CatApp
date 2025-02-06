@@ -28,20 +28,41 @@ struct CatListView: View {
     }
 
     private var content: some View {
-        List(Array(viewModel.items.enumerated()), id: \.1.id) { (index, item) in
-            CatListItem(item: item)
-                .onAppear {
-                    onScrolled(index)
-                }
-                .onTapGesture {
-                    router.navigateToDetails(item: item)
-                }
+        List {
+            ForEach(Array(viewModel.items.enumerated()), id: \.1.id) { (index, item) in
+                CatListItem(item: item)
+                    .onAppear {
+                        onScrolled(index)
+                    }
+                    .onTapGesture {
+                        router.navigateToDetails(item: item)
+                    }
+            }
+            Section {
+                bottomContent
+            }
+            .listSectionSeparator(.hidden, edges: .bottom)
         }
         .listStyle(.plain)
     }
 
+    private var bottomContent: some View {
+        Group {
+            switch viewModel.listState {
+            case .success:
+                VStack { }
+            case .loading:
+                ProgressView()
+                    .id(UUID())
+                    .frame(maxWidth: .infinity)
+            case .failure(let viewModel):
+                ErrorMessage(viewModel: viewModel)
+            }
+        }
+    }
+
     func onScrolled(_ index: Int) {
-        if viewModel.items.count - index == 5 {
+        if viewModel.items.count - index == 1 {
             Task {
                 await viewModel.loadItems()
             }
