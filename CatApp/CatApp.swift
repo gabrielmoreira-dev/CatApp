@@ -4,7 +4,7 @@ import SwiftUI
 struct CatApp: App {
     var body: some Scene {
         WindowGroup {
-            CatListView()
+            CatListView(viewModel: DependencyInjection.catListViewModel)
                 .withRouter()
         }
     }

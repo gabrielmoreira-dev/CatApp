@@ -35,9 +35,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C02E5AD42D5E72CA008B120D /* Exceptions for "CatApp" folder in "CatAppUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Networking/Local/JSONLoader.swift,
+				Core/Networking/Local/LocalResponse.swift,
+				"Core/Networking/Local/ProcessInfo+Extensions.swift",
+				Core/Networking/Local/URLSessionLocal.swift,
+				Core/Networking/Protocols/URLSessionType.swift,
+				Domain/CatAppError.swift,
+			);
+			target = C0CCBFCC2D51B12600AB45FC /* CatAppUITests */;
+		};
+		C0C9F2202D5E367B003F18B7 /* Exceptions for "CatApp" folder in "CatAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Networking/Local/JSONLoader.swift,
+			);
+			target = C0CCBFC22D51B12600AB45FC /* CatAppTests */;
+		};
 		C0CCC00D2D51CBA400AB45FC /* Exceptions for "CatApp" folder in "CatApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Core/Networking/Local/JSONLoader.swift,
 				Info.plist,
 			);
 			target = C0CCBFB22D51B12300AB45FC /* CatApp */;
@@ -49,6 +69,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				C0CCC00D2D51CBA400AB45FC /* Exceptions for "CatApp" folder in "CatApp" target */,
+				C0C9F2202D5E367B003F18B7 /* Exceptions for "CatApp" folder in "CatAppTests" target */,
+				C02E5AD42D5E72CA008B120D /* Exceptions for "CatApp" folder in "CatAppUITests" target */,
 			);
 			path = CatApp;
 			sourceTree = "<group>";

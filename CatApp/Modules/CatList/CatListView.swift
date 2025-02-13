@@ -7,8 +7,12 @@ extension CatListView {
 }
 
 struct CatListView: View {
-    @State private var viewModel = CatListViewModel()
+    @State private var viewModel: CatListViewModel
     @Environment(Router.self) var router
+
+    init(viewModel: CatListViewModel = CatListViewModel()) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         Group {
