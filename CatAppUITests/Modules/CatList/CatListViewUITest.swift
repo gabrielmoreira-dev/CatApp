@@ -53,8 +53,8 @@ final class CatListViewUITest: XCTestCase {
         app.swipeUp(velocity: .fast)
 
         XCTAssert(app.navigationBars["Cats"].staticTexts["Cats"].exists)
-        XCTAssert(app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts["Something went wrong"]/*[[".cells.staticTexts[\"Something went wrong\"]",".staticTexts[\"Something went wrong\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.exists)
-        XCTAssert(app.collectionViews/*@START_MENU_TOKEN@*/.buttons["Try again"]/*[[".cells.buttons[\"Try again\"]",".buttons[\"Try again\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.exists)
+        XCTAssert(app.collectionViews.staticTexts["Something went wrong"].exists)
+        XCTAssert(app.collectionViews.buttons["Try again"].exists)
     }
 
     func testCatListView_WhenGenericError_ThenShowGenericErrorView() {

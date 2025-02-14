@@ -4,14 +4,14 @@ struct CatServiceInput {
 }
 
 final class CatService: ServiceType {
-    private let apiClient: ApiClientType
-    
-    init(apiClient: ApiClientType = ApiClient()) {
-        self.apiClient = apiClient
+    private let dependencies: HasApiClient
+
+    init(dependencies: HasApiClient = DependencyContainer()) {
+        self.dependencies = dependencies
     }
-    
+
     func fetchData(input: CatServiceInput) async throws -> [CatResponse] {
         let endpoint = CatEndpoint.catList(page: input.page, limit: input.limit)
-        return try await apiClient.fetchData(from: endpoint)
+        return try await dependencies.apiClient.fetchData(from: endpoint)
     }
 }

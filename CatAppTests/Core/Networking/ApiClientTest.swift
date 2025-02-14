@@ -3,13 +3,13 @@ import XCTest
 
 final class ApiClientTest: XCTestCase {
     private lazy var sut: ApiClient = {
-        ApiClient(session: sessionStub)
+        ApiClient(dependencies: dependencies)
     }()
-    
-    private lazy var sessionStub: URLSessionStub = {
-        URLSessionStub()
+
+    private lazy var dependencies: DependencyContainerStub = {
+        DependencyContainerStub()
     }()
-    
+
     func testFetchData_WhenInvalidURL_ThenThrowError() async {
         let endpoint = EndpointDummy.invalidPath
         var expectedError: Error?
@@ -38,7 +38,7 @@ final class ApiClientTest: XCTestCase {
     }
 
     func testFetchData_WhenInternetError_ThenThrowError() async {
-        sessionStub.error = URLError(URLError.Code(rawValue: NSURLErrorNotConnectedToInternet))
+        dependencies.sessionStub?.error = URLError(URLError.Code(rawValue: NSURLErrorNotConnectedToInternet))
         let endpoint = EndpointDummy.validPath
         var expectedError: Error?
 
@@ -52,7 +52,7 @@ final class ApiClientTest: XCTestCase {
     }
 
     func testFetchData_WhenInvalidData_ThenThrowError() async {
-        sessionStub.successData = Data()
+        dependencies.sessionStub?.successData = Data()
         let endpoint = EndpointDummy.validPath
         var expectedError: Error?
         
@@ -66,7 +66,7 @@ final class ApiClientTest: XCTestCase {
     }
     
     func testFetchData_WhenSuccess_ThenReturnOnject() async throws {
-        sessionStub.successData = JSONLoader.load(from: "cat_response", for: Self.self)
+        dependencies.sessionStub?.successData = JSONLoader.load(from: "cat_response", for: Self.self)
         let endpoint = EndpointDummy.validPath
         
         let response: [CatResponse] = try await sut.fetchData(from: endpoint)

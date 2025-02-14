@@ -1,8 +1,8 @@
 @testable import CatApp
 
-final class ApiClientSpy<D: Decodable>: ApiClientType {
+final class ApiClientSpy: ApiClientType {
     private(set) var receivedEndpoint: EndpointType?
-    var successData: D?
+    var successData: Any?
     var error: Error = CatAppError.generic
 
     func fetchData<T: Decodable>(from endpoint: EndpointType) async throws -> T{

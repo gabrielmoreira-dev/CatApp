@@ -3,15 +3,15 @@ import XCTest
 
 final class CatServiceTest: XCTestCase {
     private lazy var sut: CatService = {
-        CatService(apiClient: apiClientSpy)
+        CatService(dependencies: dependencies)
     }()
 
-    private lazy var apiClientSpy: ApiClientSpy = {
-        ApiClientSpy<[CatResponse]>()
+    private lazy var dependencies: DependencyContainerStub = {
+        DependencyContainerStub()
     }()
 
     func testFetchData_WhenSuccess_ThenReturnData() async throws {
-        apiClientSpy.successData = [.dummy]
+        dependencies.apiClientSpy?.successData = [CatResponse.dummy]
         let input = CatServiceInput(page: 0, limit: 1)
 
         let result = try await sut.fetchData(input: input)
@@ -33,13 +33,13 @@ final class CatServiceTest: XCTestCase {
     }
 
     func testFetchData_WhenCalled_ThenPassEndpoint() async throws {
-        apiClientSpy.successData = [.dummy]
+        dependencies.apiClientSpy?.successData = [CatResponse.dummy]
         let page = 0
         let limit = 1
         let input = CatServiceInput(page: page, limit: limit)
 
         let _ = try await sut.fetchData(input: input)
 
-        XCTAssertEqual(apiClientSpy.receivedEndpoint as? CatEndpoint, .catList(page: page, limit: limit))
+        XCTAssertEqual(dependencies.apiClientSpy?.receivedEndpoint as? CatEndpoint, .catList(page: page, limit: limit))
     }
 }

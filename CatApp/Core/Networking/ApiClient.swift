@@ -5,12 +5,12 @@ protocol ApiClientType {
 }
 
 final class ApiClient: ApiClientType {
-    private let session: URLSessionType
-    
-    init(session: URLSessionType = URLSession.shared) {
-        self.session = session
+    private let dependencies: HasURLSession
+
+    init(dependencies: HasURLSession = DependencyContainer()) {
+        self.dependencies = dependencies
     }
-    
+
     func fetchData<T: Decodable>(from endpoint: EndpointType) async throws -> T {
         guard let url = getURL(for: endpoint) else {
             throw CatAppError.invalidURL
@@ -19,7 +19,7 @@ final class ApiClient: ApiClientType {
         request.addValue(Configuration.apiKey.value, forHTTPHeaderField: Headers.apiKey.rawValue)
         request.httpMethod = endpoint.method.rawValue
         do {
-            let (data, _) = try await session.data(for: request, delegate: nil)
+            let (data, _) = try await dependencies.session.data(for: request, delegate: nil)
             return try parse(data)
         } catch {
             guard (error as? URLError)?.isInternetError == true else {
