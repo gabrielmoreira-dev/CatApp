@@ -23,4 +23,3 @@ struct RouterViewModifier: ViewModifier {
         .environment(router)
     }
 }
-

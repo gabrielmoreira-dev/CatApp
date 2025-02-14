@@ -51,4 +51,3 @@ struct ErrorView: View {
         onTryAgain: nil
     ))
 }
-
