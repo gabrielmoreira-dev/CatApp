@@ -14,11 +14,15 @@ extension CatDetailsView {
 }
 
 struct CatDetailsView: View {
-    let item: CatItem
+    private let viewModel: CatDetailsViewModel
+
+    init(viewModel: CatDetailsViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         ScrollView {
-            AsyncImage(url: URL(string: item.url)) {
+            AsyncImage(url: URL(string: viewModel.image)) {
                 $0.resizable()
             } placeholder: {
                 ProgressView()
@@ -26,27 +30,27 @@ struct CatDetailsView: View {
             .aspectRatio(contentMode: .fill)
             .frame(maxWidth: .infinity)
             VStack(alignment: .leading) {
-                Text(item.breeds[0].name)
+                Text(viewModel.title)
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                Text(item.breeds[0].origin)
+                Text(viewModel.origin)
                     .font(.title3)
                     .fontWeight(.light)
-                Text(item.breeds[0].temperament)
+                Text(viewModel.temperament)
                     .font(.subheadline)
                     .fontWeight(.light)
                 Divider()
-                Text(item.breeds[0].description)
+                Text(viewModel.description)
                     .font(.body)
                 Divider()
-                RatingBar(label: Constants.adaptabilityLabel, value: item.breeds[0].adaptability)
-                RatingBar(label: Constants.affectionLevelLabel, value: item.breeds[0].affectionLevel)
-                RatingBar(label: Constants.childFriendlyLabel, value: item.breeds[0].childFriendly)
-                RatingBar(label: Constants.dogFriendlyLabel, value: item.breeds[0].dogFriendly)
-                RatingBar(label: Constants.energyLevelLabel, value: item.breeds[0].energyLevel)
-                RatingBar(label: Constants.intelligenceLabel, value: item.breeds[0].intelligence)
-                RatingBar(label: Constants.socialNeedsLabel, value: item.breeds[0].socialNeeds)
-                RatingBar(label: Constants.rareLabel, value: item.breeds[0].rare)
+                RatingBar(label: Constants.adaptabilityLabel, value: viewModel.adaptability)
+                RatingBar(label: Constants.affectionLevelLabel, value: viewModel.affectionLevel)
+                RatingBar(label: Constants.childFriendlyLabel, value: viewModel.childFriendly)
+                RatingBar(label: Constants.dogFriendlyLabel, value: viewModel.dogFriendly)
+                RatingBar(label: Constants.energyLevelLabel, value: viewModel.energyLevel)
+                RatingBar(label: Constants.intelligenceLabel, value: viewModel.intelligence)
+                RatingBar(label: Constants.socialNeedsLabel, value: viewModel.socialNeeds)
+                RatingBar(label: Constants.rareLabel, value: viewModel.rare)
             }
             .padding()
         }
@@ -55,7 +59,7 @@ struct CatDetailsView: View {
 }
 
 #Preview {
-    CatDetailsView(item: CatItem(
+    let viewModel = CatDetailsViewModel(item: CatItem(
         id: "Hb2N6tYTJ",
         url: "https://cdn2.thecatapi.com/images/Hb2N6tYTJ.jpg",
         breeds: [
@@ -75,4 +79,5 @@ struct CatDetailsView: View {
             )
         ]
     ))
+    return CatDetailsView(viewModel: viewModel)
 }

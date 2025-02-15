@@ -17,7 +17,8 @@ struct RouterViewModifier: ViewModifier {
         Group {
             switch route {
             case .details(let item):
-                CatDetailsView(item: item)
+                let viewModel = CatDetailsViewModel(item: item)
+                CatDetailsView(viewModel: viewModel)
             }
         }
         .environment(router)
